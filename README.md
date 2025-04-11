@@ -56,8 +56,8 @@ Evaluation Criteria (Rubric)
 | Criteria                                 | Points |
 | ---------------------------------------- | ------ |
 | Login/Logout Functionality               | 20     |
-| Proper authentication and authorization  | 5      |
-| Displaying appropriate error messages    | 5      |
+| Proper authentication and authorization  | 5      | 
+| Displaying appropriate error messages    | 5      | 
 | "Remember Me" functionality              | 5      |
 | Logout implementation                    | 5      |
 | Favorite Pokemons Functionality          | 20     |

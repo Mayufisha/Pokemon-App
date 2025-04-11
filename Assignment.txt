@@ -1,0 +1,21 @@
+Login/Logout Functionality               Samuel
+Proper authentication and authorization  Samuel
+Displaying appropriate error messages    Samuel
+"Remember Me" functionality              Samuel
+Logout implementation                    Samuel
+Favorite Pokemons Functionality          Bhupinder
+Adding and removing Pokemons             Bhupinder
+Data persistence with MongoDB            Salvador
+Timeline Component                       Bhupinder
+Displaying login/logout events           Salvador
+Displaying add/remove favorite events    Salvador
+Using Mongoose models effectively        Salvador
+Styling & Responsiveness                 All
+CSS Styling for a visually appealing UI  Michael
+Responsive design for mobile and desktop Michael
+
+Site Map
+
+/*
+
+*/
