@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
     let isSignup = false;
   
@@ -12,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleBtn.addEventListener('click', () => {
       isSignup = !isSignup;
 
+    //  save username and password in local storage
       const savedUsername = localStorage.getItem("savedUsername");
     const savedPassword = localStorage.getItem("savedPassword");
         
@@ -36,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
         const email = emailInput.value.trim();
         
+        //check if username and password are saved
         const remember = document.getElementById("remember").checked;
 
         if (!isSignup && remember) {
