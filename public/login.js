@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', () => {
     let isSignup = false;
   
@@ -9,6 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
   
     toggleBtn.addEventListener('click', () => {
       isSignup = !isSignup;
+
+      const savedUsername = localStorage.getItem("savedUsername");
+    const savedPassword = localStorage.getItem("savedPassword");
+        
+    if (savedUsername && savedPassword) {
+        document.getElementById("username").value = savedUsername;
+        document.getElementById("password").value = savedPassword;
+        document.getElementById("remember").checked = true;
+      }
+
       formTitle.textContent = isSignup ? "Sign Up" : "Login";
       submitBtn.textContent = isSignup ? "Sign Up" : "Login";
       toggleBtn.textContent = isSignup ? "Already have an account? Login" : "Don't have an account? Sign up";
@@ -23,7 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById('username').value.trim();
         const password = document.getElementById('password').value;
         const email = emailInput.value.trim();
-    
+        
+        const remember = document.getElementById("remember").checked;
+
+        if (!isSignup && remember) {
+          localStorage.setItem("savedUsername", username);
+          localStorage.setItem("savedPassword", password);
+        } else {
+          localStorage.removeItem("savedUsername");
+          localStorage.removeItem("savedPassword");
+        }
+
         try {
           const res = await fetch(`http://localhost:3000/api/${isSignup ? 'signup' : 'login'}`, {
             method: 'POST',
