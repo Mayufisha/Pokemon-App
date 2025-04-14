@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokédex</title>
+    <link rel="icon" type="image/x-icon" href="/imgs/logo/pokeball.png" />
+    <script
+      src="https://kit.fontawesome.com/0fb81c7629.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="dashboard.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Panchang:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    /> 
+    <link href="dashboard.css" rel="stylesheet"/>  
+  </head>
+  <body>
+    <div class="header">
+      <img src="images/pokemon_text.png" alt="Pokemon Logo" class="logo" />
+      <div class="nav-options">
+        <div id="toggle-favorites">
+          <img
+            id="favorites-icon"
+            src="images/my_pokemons.png"
+            alt="Show Favorites"
+            width="40"
+            height="40"
+          />
+        </div>
+        <!-- <div class="nav-option">
+          <img src="images/Map_icon.png" alt="Pokeball" />
+        </div>
+        <div class="nav-option">
+          <img src="images/my_pokemons.png" alt="my_pokemon" />
+        </div> -->
+        <div class="nav-option">
+          <img src="images/settings_icon.png" alt="Settings" />
+        </div>
+      </div>
+      <div class="user-profile" style="background-color: #88b6cb; border-radius: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); padding: 10px 20px; margin: 0 20px;">
+        <button id="profileBtn" class="flex items-center gap-2 text-black focus:outline-none">
+          <img src="https://img.icons8.com/color/48/000000/user-male-circle--v1.png" alt="Profile" class="w-6 h-6 rounded-full">
+          <span id="username-display" class="text-sm font-semibold">User</span>
+        </button>
+      
+        <!-- Dropdown for logout -->
+        <div id="dropdownMenu" class="absolute mt-14 right-0 w-40 bg-white text-black rounded-lg shadow-lg hidden z-10">
+          <button id="logout-btn" class="w-full text-left px-4 py-2 hover:bg-gray-200 rounded-b-lg">Logout</button>
+        </div>
+      </div>
+      
+      
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="generation-text">GENERATIONS</div>
+      <div class="sidebar">
+        <div class="starter-pokemon active-generation" data-gen="1">
+          <span class="generation-number">1</span
+          ><img
+            src="images/gens/generation_01.png"
+            alt="Gen 1"
+            class="gen-icon"
+          />
+        </div>
+        <div class="starter-pokemon active-generation" data-gen="2">
+          <span class="generation-number">2</span
+          ><img
+            src="images/gens/generation_02.png"
+            alt="Gen 2"
+            class="gen-icon"
+          />
+        </div>
+        <div class="starter-pokemon active-generation" data-gen="3">
+          <span class="generation-number">3</span
+          ><img
+            src="images/gens/generation_03.png"
+            alt="Gen 3"
+            class="gen-icon"
+          />
+        </div>
+        <div class="starter-pokemon active-generation" data-gen="4">
+          <span class="generation-number">4</span
+          ><img
+            src="images/gens/generation_04.png"
+            alt="Gen 4"
+            class="gen-icon"
+          />
+        </div>
+        <div class="starter-pokemon active-generation" data-gen="5">
+          <span class="generation-number">5</span
+          ><img
+            src="images/gens/generation_05.png"
+            alt="Gen 5"
+            class="gen-icon"
+          />
+        </div>
+        <div class="starter-pokemon active-generation" data-gen="6">
+          <span class="generation-number">6</span
+          ><img
+            src="images/gens/generation_06.png"
+            alt="Gen 6"
+            class="gen-icon"
+          />
+        </div>
+      </div>
+
+      <div class="pokemon-details">
+        <!-- <div class="search-bar">
+          <i class="fa-solid fa-magnifying-glass" style="color: #ffffff"></i>
+          <input
+            type="text"
+            placeholder="Search your favorite pokemon..."
+            class="search-bar-input"
+            id="search"
+          />
+        </div> -->
+        <div id="details-container">
+          <!-- Pokemon details will be injected here by JS -->
+        </div>
+      </div>
+    </div>
+
+   
+  </body>
+</html>
