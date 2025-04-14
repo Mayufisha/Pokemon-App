@@ -451,6 +451,7 @@ textarea::placeholder {
   color: #9ca3af; /* 2 */
 }
 
+
 /*
 Set the default cursor for buttons.
 */
@@ -556,12 +557,19 @@ video {
     overflow: hidden;
   }
 .sidebar {
-    margin-top: 60px;
+    margin-top: 20px;
+    padding-top: 20px;
     width: 200px;
     background-color: #547b8c;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
+      scrollbar-width: none;
+      /* Firefox */
+      -ms-overflow-style: none;
+      /* IE/Edge */
+    
   }
 .generation-text {
     color: rgba(255, 255, 255, 0.6);
@@ -609,6 +617,10 @@ video {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     overflow: auto;
+      scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE/Edge */
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 .pokemon-name {
@@ -670,6 +682,8 @@ video {
     color: rgba(255, 255, 255, 0.6);
   }
 .type-filters {
+  margin-top: 20px;
+  margin-bottom: 10px;
     display: flex;
     flex-wrap: wrap;
     gap: 0.625rem;
