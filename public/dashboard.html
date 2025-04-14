@@ -40,10 +40,19 @@
           <img src="images/settings_icon.png" alt="Settings" />
         </div>
       </div>
-      <div class="user-profile">
-        <img src="imgs/logo/snorlax.png" alt="Profile" width="30" height="30" />
-        <span>Michael</span>
+      <div class="user-profile" style="background-color: #88b6cb; border-radius: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); padding: 10px 20px; margin: 0 20px;">
+        <button id="profileBtn" class="flex items-center gap-2 text-black focus:outline-none">
+          <img src="https://img.icons8.com/color/48/000000/user-male-circle--v1.png" alt="Profile" class="w-6 h-6 rounded-full">
+          <span id="username-display" class="text-sm font-semibold">User</span>
+        </button>
+      
+        <!-- Dropdown for logout -->
+        <div id="dropdownMenu" class="absolute mt-14 right-0 w-40 bg-white text-black rounded-lg shadow-lg hidden z-10">
+          <button id="logout-btn" class="w-full text-left px-4 py-2 hover:bg-gray-200 rounded-b-lg">Logout</button>
+        </div>
       </div>
+      
+      
     </div>
 
     <!-- Main Content -->

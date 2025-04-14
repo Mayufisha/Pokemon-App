@@ -41,7 +41,7 @@
    width: 40px;
    height: 40px;
  }
- .user-profile {
+ /* .user-profile {
    margin-left: 20px;
    margin-right: 20px;
    background-color: #88b6cb;
@@ -51,7 +51,7 @@
    align-items: center;
    gap: 10px;
    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
- }
+ } */
  .main-content {
    display: flex;
    flex: 1;

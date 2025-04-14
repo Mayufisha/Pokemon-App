@@ -498,3 +498,30 @@ document.addEventListener("DOMContentLoaded", () => {
         return types[id] || ["normal"];
       }
 });
+// Show username from localStorage
+const username = localStorage.getItem('username');
+if (username) {
+  document.getElementById('username-display').textContent = username;
+}
+
+// Dropdown toggle
+const profileBtn = document.getElementById('profileBtn');
+const dropdownMenu = document.getElementById('dropdownMenu');
+
+profileBtn.addEventListener('click', () => {
+  dropdownMenu.classList.toggle('hidden');
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  if (!profileBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+    dropdownMenu.classList.add('hidden');
+  }
+});
+
+// Logout functionality
+document.getElementById('logout-btn').addEventListener('click', () => {
+  localStorage.removeItem('username');
+  window.location.href = 'index.html';
+});
+
