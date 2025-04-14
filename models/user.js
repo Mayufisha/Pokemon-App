@@ -11,6 +11,7 @@ const activitySchema = new mongoose.Schema({
       "add_favorite",
       "remove_favorite",
       "view_pokemon",
+      "logout",
     ],
     required: true,
   },

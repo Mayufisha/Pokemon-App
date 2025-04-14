@@ -11,37 +11,117 @@
       crossorigin="anonymous"
     ></script>
     <link href="/css/styles.css" rel="stylesheet" />
+    <style>
+      .user-profile {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        position: relative;
+      }
+      
+      .user-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        min-width: 150px;
+        z-index: 100;
+        display: none;
+      }
+      
+      .user-menu.active {
+        display: block;
+      }
+      
+      .user-menu-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      
+      .user-menu-item:hover {
+        background-color: #f0f0f0;
+      }
+      
+      .logout-btn {
+        color: #e74c3c;
+      }
+      
+      .tooltip {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        display: none;
+        z-index: 100;
+        white-space: nowrap;
+      }
+    </style>
   </head>
   <body>
     <div class="header">
       <img src="/images/pokemon_text.png" alt="Pokemon Logo" class="logo" />
       <div class="nav-options">
-        <div id="toggle-favorites">
-          <img
-            id="favorites-icon"
-            src="/images/my_pokemons.png"
-            alt="Show Favorites"
-            width="40"
-            height="40"
-          />
+        <div id="toggle-favorites" class="nav-option" data-tooltip="My Favorites">
+          <a href="/favorites">
+            <img
+              id="favorites-icon"
+              src="/images/my_pokemons.png"
+              alt="Show Favorites"
+              width="40"
+              height="40"
+            />
+          </a>
         </div>
-        <div class="nav-option">
+        <div class="nav-option" data-tooltip="Settings">
+           <a href="/activities">
           <img src="/images/settings_icon.png" alt="Settings" />
+          </a>
         </div>
       </div>
       <div class="user-profile">
         <img
-          src="/images/logo/snorlax.png"
+          src="images/pokemon_characters/bulbasaur.png"
           alt="Profile"
           width="30"
           height="30"
         />
-        <span>Michael</span>
+        <span id="username-display">Loading...</span>
+        <i class="fas fa-caret-down" style="margin-left: 5px;"></i>
+        
+        <!-- User menu dropdown -->
+        <div class="user-menu">
+          <div class="user-menu-item">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+          </div>
+          <div class="user-menu-item">
+            <i class="fas fa-star"></i>
+            <span>Favorites</span>
+          </div>
+          <div class="user-menu-item">
+            <i class="fas fa-history"></i>
+            <span>Activities</span>
+          </div>
+          <div class="user-menu-item logout-btn" id="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
+      <div class="main-content">
       <div class="generation-text">GENERATIONS</div>
       <div class="sidebar">
         <div class="starter-pokemon active-generation" data-gen="1">
@@ -124,7 +204,141 @@
         </div>
       </div>
     </div>
+    </div>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Check if user is logged in client-side
+        const userId = sessionStorage.getItem('userId');
+        const username = sessionStorage.getItem('username');
+        
+        if (!userId || !username) {
+          // Try to get the user info from the server
+          fetch('/api/user/profile', {
+            credentials: 'include' // Include cookies in the request
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Not authenticated');
+            }
+            return response.json();
+          })
+          .then(data => {
+            // Store user data in session storage
+            sessionStorage.setItem('userId', data.userId);
+            sessionStorage.setItem('username', data.username);
+            
+            // Update username display
+            document.getElementById('username-display').textContent = data.username;
+          })
+          .catch(error => {
+            console.error('Authentication error:', error);
+            // Redirect to login page
+            window.location.href = '/login';
+          });
+        } else {
+          // Update username display from session storage
+          document.getElementById('username-display').textContent = username;
+        }
+        
+        // Intercept fetch requests to add auth header for APIs that might not support cookies
+        const originalFetch = window.fetch;
+        window.fetch = function(url, options = {}) {
+          // Add auth header to all API requests
+          if (url.toString().includes('/api/')) {
+            options.credentials = 'include'; // Include cookies in the request
+            
+            // Also add user-id header as fallback
+            if (userId) {
+              options.headers = {
+                ...options.headers,
+                'user-id': userId
+              };
+            }
+          }
+          return originalFetch(url, options);
+        };
+        
+        // User profile dropdown toggle
+        const userProfile = document.querySelector('.user-profile');
+        const userMenu = document.querySelector('.user-menu');
+        
+        userProfile.addEventListener('click', () => {
+          userMenu.classList.toggle('active');
+        });
+        
+        // Hide menu when clicking elsewhere
+        document.addEventListener('click', (event) => {
+          if (!userProfile.contains(event.target)) {
+            userMenu.classList.remove('active');
+          }
+        });
+        
+        // Handle logout
+        document.getElementById('logout-btn').addEventListener('click', () => {
+          // Log the activity and clear cookies
+          fetch('/api/user/logout', {
+            method: 'POST',
+            credentials: 'include', // Include cookies
+            headers: {
+              'Content-Type': 'application/json',
+              'user-id': userId || ''
+            }
+          }).finally(() => {
+            // Clear session storage
+            sessionStorage.removeItem('userId');
+            sessionStorage.removeItem('username');
+            sessionStorage.removeItem('loggedIn');
+            
+            // Redirect to login page
+            window.location.href = '/login';
+          });
+        });
+        
+        // Tooltips for nav options
+        const navOptions = document.querySelectorAll('.nav-option');
+        
+        navOptions.forEach(option => {
+          option.addEventListener('mouseenter', (e) => {
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            tooltip.textContent = option.dataset.tooltip;
+            option.appendChild(tooltip);
+            
+            // Position the tooltip
+            const rect = option.getBoundingClientRect();
+            tooltip.style.top = rect.height + 'px';
+            tooltip.style.left = (rect.width / 2 - tooltip.offsetWidth / 2) + 'px';
+            tooltip.style.display = 'block';
+          });
+          
+          option.addEventListener('mouseleave', () => {
+            const tooltip = option.querySelector('.tooltip');
+            if (tooltip) {
+              tooltip.remove();
+            }
+          });
+        });
+        
+        // Log activity when page loads
+        fetch('/api/user/log-activity', {
+          method: 'POST',
+          credentials: 'include', // Include cookies
+          headers: {
+            'Content-Type': 'application/json',
+            'user-id': userId || ''
+          },
+          body: JSON.stringify({
+            type: 'view_pokedex',
+            details: {
+              page: 'registered'
+            }
+          })
+        }).catch(error => {
+          console.error('Error logging activity:', error);
+        });
+      });
+    </script>
     <script src="/js/main.js"></script>
   </body>
 </html>
