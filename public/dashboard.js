@@ -497,8 +497,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
         return types[id] || ["normal"];
       }
-});
-// Show username from localStorage
+      // Show username from localStorage
 const username = localStorage.getItem('username');
 if (username) {
   document.getElementById('username-display').textContent = username;
@@ -522,6 +521,8 @@ document.addEventListener('click', (e) => {
 // Logout functionality
 document.getElementById('logout-btn').addEventListener('click', () => {
   localStorage.removeItem('username');
-  window.location.href = 'index.html';
+  window.location.href = 'login.html';
 });
+});
+
 
