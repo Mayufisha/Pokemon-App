@@ -17,5 +17,11 @@ Responsive design for mobile and desktop Michael
 Site Map
 
 /*
+To run the project, you would:
+
+Install dependencies with: "npm install"  this will install dependencies on package.json
+Build the CSS with: "npm run build:css" (This is already done, but you can run again)
+Start the server with: "npm run dev" same as nodemon app.js<- run this not ->  npm start (Prod)
+Access the application at http://localhost:3000
 
 */

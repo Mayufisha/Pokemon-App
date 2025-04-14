@@ -1,0 +1,21 @@
+{
+  "name": "pokedex-express-tailwind",
+  "version": "1.0.0",
+  "description": "Pokédex app using Express.js and Tailwind CSS",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "build:css": "postcss public/css/tailwind.css -o public/css/styles.css"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "nodemon": "^3.0.1",
+    "postcss": "^8.4.27",
+    "postcss-cli": "^10.1.0",
+    "tailwindcss": "^3.3.3"
+  }
+}
