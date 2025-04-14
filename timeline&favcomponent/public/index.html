@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pokemon Timeline</title>
+    <style>
+        .favorites-list {
+            margin: 20px;
+        }
+        .timeline-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pokemon App</h1>`
+    <button id="login-btn">Login</button>
+    <button id="logout-btn">Logout</button>
+    <button id="toggle-favorites">Show Favorites</button>
+
+    <div id="pokemon-container">
+        <div class="pokemon-card" data-id="1" data-name="bulbasaur" data-img="img_url">
+            <input type="text" class="favorite-note" placeholder="Add a note...">
+            <button class="add-favorite-btn">Add to Favorites</button>
+            <button class="remove-favorite-btn">Remove from Favorites</button>
+        </div>
+    </div>
+    <div id="favorites-list" class="favorites-list">
+        <h2>My Favorites</h2>
+        <div id="favorites-container"></div>
+    </div>
+    <div class="timeline-container">
+        <h2>Activity Timeline</h2>
+        <div id="timeline-list" class="timeline"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
