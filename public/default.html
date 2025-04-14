@@ -242,22 +242,30 @@
         }
         
         // Intercept fetch requests to add auth header for APIs that might not support cookies
-        const originalFetch = window.fetch;
-        window.fetch = function(url, options = {}) {
-          // Add auth header to all API requests
-          if (url.toString().includes('/api/')) {
-            options.credentials = 'include'; // Include cookies in the request
+        // Replace your existing fetch interceptor with this
+          const originalFetch = window.fetch;
+          window.fetch = function(url, options = {}) {
+            const urlStr = url.toString();
             
-            // Also add user-id header as fallback
-            if (userId) {
-              options.headers = {
-                ...options.headers,
-                'user-id': userId
-              };
+            // Only add credentials for your own API endpoints
+            if (urlStr.includes('/api/') && urlStr.startsWith('/')) {
+              options.credentials = 'include'; // Include cookies in the request
+              
+              // Also add user-id header as fallback
+              if (userId) {
+                options.headers = {
+                  ...options.headers,
+                  'user-id': userId
+                };
+              }
+            } 
+            // For external APIs like PokeAPI, explicitly omit credentials
+            else if (urlStr.includes('pokeapi.co')) {
+              options.credentials = 'omit';
             }
-          }
-          return originalFetch(url, options);
-        };
+            
+            return originalFetch(url, options);
+          };
         
         // User profile dropdown toggle
         const userProfile = document.querySelector('.user-profile');

@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "build:css": "postcss public/css/tailwind.css -o public/css/styles.css"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",

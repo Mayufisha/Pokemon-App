@@ -103,7 +103,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const promises = [];
     for (let i = start; i <= end; i++) {
       const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-      promises.push(fetch(url).then((res) => res.json()));
+      promises.push(
+        fetch(url, { credentials: "omit" }).then((res) => res.json())
+      );
     }
 
     Promise.all(promises).then((results) => {
@@ -277,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
           displayPokemonDetails(evoPokemon);
         } else {
           // Fetch pokemon if not in current list
-          fetch(`https://pokeapi.co/api/v2/pokemon/${evoId}`)
+          fetch(`https://pokeapi.co/api/v2/pokemon/${evoId}`, { credentials: 'omit' })
             .then((res) => res.json())
             .then((pokemon) => {
               displayPokemonDetails(pokemon);
