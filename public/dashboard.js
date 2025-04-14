@@ -521,7 +521,7 @@ document.addEventListener('click', (e) => {
 // Logout functionality
 document.getElementById('logout-btn').addEventListener('click', () => {
   localStorage.removeItem('username');
-  window.location.href = 'login.html';
+  window.location.href = 'index.html';
 });
 });
 
