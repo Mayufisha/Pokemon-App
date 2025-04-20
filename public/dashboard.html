@@ -4,18 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pokédex</title>
+    <title>Pokémon</title>
     <link rel="icon" type="image/x-icon" href="/imgs/logo/pokeball.png" />
     <script
-      src="https://kit.fontawesome.com/0fb81c7629.js"
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       crossorigin="anonymous"
     ></script>
     <script src="dashboard.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Panchang:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
-    /> 
-    <link href="dashboard.css" rel="stylesheet"/>  
+    />
+    <link href="dashboard.css" rel="stylesheet" />
   </head>
   <body>
     <div class="header">
@@ -30,29 +30,51 @@
             height="40"
           />
         </div>
-        <!-- <div class="nav-option">
+        <div class="nav-option">
           <img src="images/Map_icon.png" alt="Pokeball" />
         </div>
         <div class="nav-option">
           <img src="images/my_pokemons.png" alt="my_pokemon" />
-        </div> -->
+        </div>
         <div class="nav-option">
           <img src="images/settings_icon.png" alt="Settings" />
         </div>
       </div>
-      <div class="user-profile" style="background-color: #88b6cb; border-radius: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); padding: 10px 20px; margin: 0 20px;">
-        <button id="profileBtn" class="flex items-center gap-2 text-black focus:outline-none">
-          <img src="https://img.icons8.com/color/48/000000/user-male-circle--v1.png" alt="Profile" class="w-6 h-6 rounded-full">
+      <div
+        class="user-profile"
+        style="
+          background-color: #88b6cb;
+          border-radius: 20px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+          padding: 10px 20px;
+          margin: 0 20px;
+        "
+      >
+        <button
+          id="profileBtn"
+          class="flex items-center gap-2 text-black focus:outline-none"
+        >
+          <img
+            src="https://img.icons8.com/color/48/000000/user-male-circle--v1.png"
+            alt="Profile"
+            class="w-6 h-6 rounded-full"
+          />
           <span id="username-display" class="text-sm font-semibold">User</span>
         </button>
-      
+
         <!-- Dropdown for logout -->
-        <div id="dropdownMenu" class="absolute mt-14 right-0 w-40 bg-white text-black rounded-lg shadow-lg hidden z-10">
-          <button id="logout-btn" class="w-full text-left px-4 py-2 hover:bg-gray-200 rounded-b-lg">Logout</button>
+        <div
+          id="dropdownMenu"
+          class="absolute mt-14 right-0 w-40 bg-white text-black rounded-lg shadow-lg hidden z-10"
+        >
+          <button
+            id="logout-btn"
+            class="w-full text-left px-4 py-2 hover:bg-gray-200 rounded-b-lg"
+          >
+            Logout
+          </button>
         </div>
       </div>
-      
-      
     </div>
 
     <!-- Main Content -->
@@ -124,7 +146,5 @@
         </div>
       </div>
     </div>
-
-   
   </body>
 </html>

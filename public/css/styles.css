@@ -766,6 +766,7 @@ body {
   width: 0.75rem;
   height: 0.75rem;
 }
+
 .favorite-btn {
   position: absolute;
   top: 0.25rem;
@@ -773,10 +774,25 @@ body {
   background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 1.125rem;
-  color: #ffd700;
+  font-size: 2.5rem; /* Increased size for better visibility */
+  color: #ffd700; /* Gold color for stars */
   z-index: 10;
+  display: block; /* Always visible */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Add shadow for better visibility */
+  transition: transform 0.2s ease, color 0.2s ease;
 }
+
+.favorite-btn:hover {
+  transform: scale(1.2); /* Slightly enlarge on hover */
+  color: #ffcc00; /* Brighter gold on hover */
+}
+
+/* Style for the card to properly position the star */
+.pokemon-details-card {
+  position: relative; /* Ensure this is set for absolute positioning of the star */
+  padding-top: 2rem; /* Add some space at the top for the star */
+}
+
 .divider {
   width: 100%;
   height: 1px;
@@ -804,6 +820,59 @@ body {
 }
 
 /* Base styles */
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.user-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  min-width: 150px;
+  z-index: 100;
+  display: none;
+}
+
+.user-menu.active {
+  display: block;
+}
+
+.user-menu-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-menu-item:hover {
+  background-color: #f0f0f0;
+}
+
+.logout-btn {
+  color: #e74c3c;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  display: none;
+  z-index: 100;
+  white-space: nowrap;
+}
 
 /* Component styles */
 
@@ -880,5 +949,222 @@ body {
 
   .pokemon-cards-grid {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  /* Timeline CSS styles  */
+  #activity-timeline-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+    overflow: hidden;
+  }
+
+  #activity-timeline-container.active {
+    display: block;
+  }
+
+  .activity-timeline {
+    background-color: #b3ddca;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    height: calc(100% - 40px);
+    overflow-y: auto;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  }
+
+  .timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+    padding-bottom: 10px;
+  }
+
+  .timeline-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .timeline-close {
+    background: transparent;
+    border: none;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+
+  .timeline-close:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Date group styling */
+  .timeline-date-group {
+    margin-bottom: 30px;
+  }
+
+  .timeline-date-header {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.8);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+
+  .timeline-date-activities {
+    padding-left: 10px;
+  }
+
+  /* Timeline item styling */
+  .timeline-item {
+    display: flex;
+    margin-bottom: 15px;
+    border-left: 3px solid #88b6cb;
+    padding-left: 15px;
+    position: relative;
+    align-items: flex-start;
+  }
+
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline-item:before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #88b6cb;
+    position: absolute;
+    left: -7px;
+    top: 0;
+  }
+
+  .timeline-time {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 0.8rem;
+    min-width: 80px;
+    margin-top: 3px;
+  }
+
+  .timeline-content {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  /* Pokemon icon styling */
+  .pokemon-icon {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .pokemon-icon img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+  }
+
+  .timeline-activity {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    flex: 1;
+  }
+
+  .timeline-title {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 5px;
+  }
+
+  .timeline-details {
+    color: #333;
+    font-size: 0.9rem;
+  }
+
+  .pokemon-link {
+    color: #3498db;
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+  .timeline-empty {
+    text-align: center;
+    padding: 20px;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1.2rem;
+  }
+
+  /* Activity type-specific colors */
+  .timeline-item.login:before {
+    background-color: #3498db;
+  }
+  .timeline-item.signup:before {
+    background-color: #2ecc71;
+  }
+  .timeline-item.add_favorite:before {
+    background-color: #f1c40f;
+  }
+  .timeline-item.remove_favorite:before {
+    background-color: #e74c3c;
+  }
+  .timeline-item.view_pokemon:before {
+    background-color: #9b59b6;
+  }
+  .timeline-item.view_pokedex:before,
+  .timeline-item.browse_pokemon:before {
+    background-color: #1abc9c;
+  }
+  .timeline-item.logout:before {
+    background-color: #95a5a6;
+  }
+
+  /* Error details styling */
+  .error-details {
+    font-size: 0.8rem;
+    color: #e74c3c;
+    margin-top: 5px;
+    font-style: italic;
+  }
+
+  /* Responsive styles for smaller screens */
+  @media screen and (max-width: 768px) {
+    #activity-timeline-container {
+      width: 100%;
+      position: fixed;
+    }
+
+    .activity-timeline {
+      margin: 10px;
+      height: calc(100% - 20px);
+    }
   }
 }

@@ -5,70 +5,245 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokémon App</title>
-    <link rel="icon" type="image/x-icon" href="/images/logo/pokeball.png" />
+    <link rel="icon" type="image/x-icon" href="#" />
+    <!-- With these correct implementations -->
+    <!-- CSS for FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+
+    <!-- JS for FontAwesome (if you need the JS functionality) -->
     <script
-      src="https://kit.fontawesome.com/0fb81c7629.js"
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"
       crossorigin="anonymous"
     ></script>
-    <link href="/css/styles.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/styles.css" />
     <style>
-      .user-profile {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        position: relative;
-      }
+      /* Timeline CSS styles  */
+        #activity-timeline-container {
+          position: fixed;
+          top: 0;
+          right: 0;
+          width: 400px;
+          height: 100vh;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 1000;
+          display: none;
+          overflow: hidden;
+        }
 
-      .user-menu {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        padding: 10px;
-        min-width: 150px;
-        z-index: 100;
-        display: none;
-      }
+        #activity-timeline-container.active {
+          display: block;
+        }
 
-      .user-menu.active {
-        display: block;
-      }
+        .activity-timeline {
+          background-color: #b3ddca;
+          border-radius: 10px;
+          padding: 20px;
+          margin: 20px;
+          height: calc(100% - 40px);
+          overflow-y: auto;
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
 
-      .user-menu-item {
-        padding: 8px 12px;
-        cursor: pointer;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
+        .timeline-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+          border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+          padding-bottom: 10px;
+        }
 
-      .user-menu-item:hover {
-        background-color: #f0f0f0;
-      }
+        .timeline-header h3 {
+          margin: 0;
+          font-size: 1.5rem;
+          color: rgba(0, 0, 0, 0.7);
+          font-weight: 700;
+          text-transform: uppercase;
+        }
 
-      .logout-btn {
-        color: #e74c3c;
-      }
+        .timeline-close {
+          background: transparent;
+          border: none;
+          color: rgba(0, 0, 0, 0.6);
+          font-size: 1.5rem;
+          cursor: pointer;
+          padding: 0;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+        }
 
-      .tooltip {
-        position: absolute;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 12px;
-        display: none;
-        z-index: 100;
-        white-space: nowrap;
-      }
+        .timeline-close:hover {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Date group styling */
+        .timeline-date-group {
+          margin-bottom: 30px;
+        }
+
+        .timeline-date-header {
+          background-color: rgba(0, 0, 0, 0.1);
+          color: rgba(0, 0, 0, 0.8);
+          padding: 8px 15px;
+          border-radius: 5px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          display: inline-block;
+        }
+
+        .timeline-date-activities {
+          padding-left: 10px;
+        }
+
+        /* Timeline item styling */
+        .timeline-item {
+          display: flex;
+          margin-bottom: 15px;
+          border-left: 3px solid #88b6cb;
+          padding-left: 15px;
+          position: relative;
+          align-items: flex-start;
+        }
+
+        .timeline-item:last-child {
+          margin-bottom: 0;
+        }
+
+        .timeline-item:before {
+          content: "";
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background-color: #88b6cb;
+          position: absolute;
+          left: -7px;
+          top: 0;
+        }
+
+        .timeline-time {
+          color: rgba(0, 0, 0, 0.7);
+          font-size: 0.8rem;
+          min-width: 80px;
+          margin-top: 3px;
+        }
+
+        .timeline-content {
+          flex: 1;
+          display: flex;
+          align-items: flex-start;
+        }
+
+        /* Pokemon icon styling */
+        .pokemon-icon {
+          width: 50px;
+          height: 50px;
+          background-color: rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          margin-right: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          flex-shrink: 0;
+        }
+
+        .pokemon-icon img {
+          width: 45px;
+          height: 45px;
+          object-fit: contain;
+        }
+
+        .timeline-activity {
+          background-color: rgba(255, 255, 255, 0.7);
+          padding: 10px;
+          border-radius: 5px;
+          flex: 1;
+        }
+
+        .timeline-title {
+          font-weight: bold;
+          color: #2c3e50;
+          margin-bottom: 5px;
+        }
+
+        .timeline-details {
+          color: #333;
+          font-size: 0.9rem;
+        }
+
+        .pokemon-link {
+          color: #3498db;
+          cursor: pointer;
+          text-decoration: underline;
+          font-weight: bold;
+        }
+
+        .timeline-empty {
+          text-align: center;
+          padding: 20px;
+          color: rgba(0, 0, 0, 0.7);
+          font-size: 1.2rem;
+        }
+
+        /* Activity type-specific colors */
+        .timeline-item.login:before {
+          background-color: #3498db;
+        }
+        .timeline-item.signup:before {
+          background-color: #2ecc71;
+        }
+        .timeline-item.add_favorite:before {
+          background-color: #f1c40f;
+        }
+        .timeline-item.remove_favorite:before {
+          background-color: #e74c3c;
+        }
+        .timeline-item.view_pokemon:before {
+          background-color: #9b59b6;
+        }
+        .timeline-item.view_pokedex:before,
+        .timeline-item.browse_pokemon:before {
+          background-color: #1abc9c;
+        }
+        .timeline-item.logout:before {
+          background-color: #95a5a6;
+        }
+
+        /* Error details styling */
+        .error-details {
+          font-size: 0.8rem;
+          color: #e74c3c;
+          margin-top: 5px;
+          font-style: italic;
+        }
+
+        /* Responsive styles for smaller screens */
+        @media screen and (max-width: 768px) {
+          #activity-timeline-container {
+            width: 100%;
+            position: fixed;
+          }
+
+          .activity-timeline {
+            margin: 10px;
+            height: calc(100% - 20px);
+          }
+        }
     </style>
   </head>
   <body>
     <div class="header">
       <img src="/images/pokemon_text.png" alt="Pokemon Logo" class="logo" />
+
       <div class="nav-options">
         <div
           id="toggle-favorites"
@@ -85,13 +260,17 @@
             />
           </a>
         </div>
-        <!-- this if for timeling -->
-        <div class="nav-option" data-tooltip="Settings">
-          <a href="/activities">
-            <img src="/images/settings_icon.png" alt="Settings" />
+        <div
+          class="nav-option"
+          data-tooltip="Activity Timeline"
+          id="toggle-timeline"
+        >
+          <a href="#">
+            <img src="/images/settings_icon.png" alt="Activity Timeline" />
           </a>
         </div>
       </div>
+
       <div class="user-profile">
         <img
           src="images/pokemon_characters/bulbasaur.png"
@@ -111,6 +290,7 @@
         </div>
       </div>
     </div>
+    <!-- End Nav-options -->
 
     <!-- Main Content -->
     <div class="main-content">
@@ -197,7 +377,22 @@
           </div>
         </div>
       </div>
+
+      <!-- Timeline container - This was commented out in your original HTML -- >
+      <div id="activity-timeline-container">
+        <div class="activity-timeline">
+          <div class="timeline-header">
+            <h3>Your Activity Timeline</h3>
+            <button class="timeline-close" id="close-timeline">&times;</button>
+          </div>
+          <div id="timeline-content">
+            <!- - Timeline items will be inserted here by JavaScript -- > 
+            <div class="timeline-empty">Loading activities...</div>
+          </div>
+        </div>
+      </div>
     </div>
+    < !-- end of main-content -->
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -228,7 +423,7 @@
             .catch((error) => {
               console.error("Authentication error:", error);
               // Redirect to login page
-              window.location.href = "/login";
+              window.location.href = "/login-page";
             });
         } else {
           // Update username display from session storage
@@ -293,7 +488,7 @@
             sessionStorage.removeItem("loggedIn");
 
             // Redirect to login page
-            window.location.href = "/login";
+            window.location.href = "/login-page";
           });
         });
 
@@ -332,7 +527,7 @@
             "user-id": userId || "",
           },
           body: JSON.stringify({
-            type: "view_pokedex",
+            type: "view_pokemon",
             details: {
               page: "registered",
             },
@@ -341,7 +536,180 @@
           console.error("Error logging activity:", error);
         });
       });
+
+      // Timeline functionality
+      document.addEventListener("DOMContentLoaded", () => {
+        const timelineToggle = document.getElementById("toggle-timeline");
+        //const timelineContainer = document.getElementById("activity-timeline-container");
+        //const closeTimelineBtn = document.getElementById("close-timeline");
+        let activitiesLoaded = false;
+
+        // Make sure all elements exist before adding event listeners
+        // if (timelineToggle ) {
+        //   // Toggle timeline visibility
+        //   // timelineToggle.addEventListener("click", () => {
+        //   //   timelineContainer.classList.toggle("active");
+
+        //   //   // Load activities if not already loaded
+        //   //   if (!activitiesLoaded) {
+        //   //     loadActivities();
+        //   //   }
+        //   // });
+
+        //   // Close timeline when clicking the close button
+        //   // closeTimelineBtn.addEventListener("click", () => {
+        //   //   timelineContainer.classList.remove("active");
+        //   // });
+        // } else {
+        //   console.error("Timeline elements not found in the DOM");
+        // }
+
+        // Function to load user activities
+        function loadActivities() {
+          const userId = sessionStorage.getItem("userId");
+
+          fetch("/api/user/activities", {
+            credentials: "include",
+            headers: {
+              "user-id": userId || "",
+            },
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Failed to fetch activities");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              displayActivities(data.activities);
+              activitiesLoaded = true;
+            })
+            .catch((error) => {
+              console.error("Error loading activities:", error);
+              const timelineContent = document.getElementById("timeline-content");
+              if (timelineContent) {
+                timelineContent.innerHTML = `
+                  <div class="timeline-empty">
+                    <p>Could not load activities. Please try again later.</p>
+                  </div>
+                `;
+              }
+            });
+        }
+
+        // Function to display activities in the timeline
+        function displayActivities(activities) {
+          const timelineContent = document.getElementById("timeline-content");
+          if (!timelineContent) {
+            console.error("Timeline content element not found");
+            return;
+          }
+
+          if (!activities || activities.length === 0) {
+            timelineContent.innerHTML = `
+              <div class="timeline-empty">
+                <p>No activities recorded yet.</p>
+              </div>
+            `;
+            return;
+          }
+
+          const activitiesHtml = activities
+            .map((activity) => {
+              // Format the timestamp
+              const date = new Date(activity.timestamp);
+              const formattedDate = `${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
+
+              // Create activity title based on type
+              let title = "";
+              let details = "";
+
+              switch (activity.type) {
+                case "login":
+                  title = "Logged in";
+                  details = "You signed into your account";
+                  break;
+
+                case "signup":
+                  title = "Created account";
+                  details = "You created your Pokémon account";
+                  break;
+
+                case "add_favorite":
+                  title = "Added to favorites";
+                  details = activity.pokemonName
+                    ? `You added <span class="pokemon-link">${activity.pokemonName}</span> to favorites`
+                    : "You added a Pokémon to favorites";
+                  break;
+
+                case "remove_favorite":
+                  title = "Removed from favorites";
+                  details = activity.pokemonName
+                    ? `You removed <span class="pokemon-link">${activity.pokemonName}</span> from favorites`
+                    : "You removed a Pokémon from favorites";
+                  break;
+
+                case "view_pokemon":
+                  title = "Viewed Pokémon";
+                  details = activity.pokemonName
+                    ? `You viewed <span class="pokemon-link">${activity.pokemonName}</span>'s details`
+                    : "You viewed a Pokémon's details";
+                  break;
+
+                case "browse_pokemon":
+                  title = "Browsed Pokémon";
+                  details = "You browsed the Pokémon";
+                  break;
+
+                case "logout":
+                  title = "Logged out";
+                  details = "You signed out of your account";
+                  break;
+
+                default:
+                  title = "Activity recorded";
+                  details = `Activity type: ${activity.type}`;
+              }
+
+              // Add any extra details if they exist
+              if (activity.details && Object.keys(activity.details).length > 0) {
+                // Handle specific detail types
+                if (activity.details.page) {
+                  details += ` on ${activity.details.page} page`;
+                }
+              }
+
+              return `
+                <div class="timeline-item ${activity.type}">
+                  <div class="timeline-content">
+                    <div class="timeline-time">${formattedDate}</div>
+                    <div class="timeline-activity">
+                      <div class="timeline-title">${title}</div>
+                      <div class="timeline-details">${details}</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+            })
+            .join("");
+
+          timelineContent.innerHTML = activitiesHtml;
+
+          // Add click handlers for Pokémon links
+          document.querySelectorAll(".pokemon-link").forEach((link) => {
+            link.addEventListener("click", () => {
+              // If there's a Pokémon ID available, we could load that specific Pokémon
+              const pokemonName = link.textContent;
+              // You could implement logic here to show that Pokémon
+
+              // Close the timeline
+              //timelineContainer.classList.remove("active");
+            });
+          });
+        }
+      });
     </script>
     <script src="/js/main.js"></script>
+    <script src="/js/timeline.js"></script>
   </body>
 </html>
