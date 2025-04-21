@@ -297,6 +297,8 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
 
     const detailsHtml = `
+      <div class="mx-auto rounded-2xl shadow-md overflow-hidden border border-gray-200 p-2 mb-4">
+       <div class="p-4 relative">
           <h1 class="pokemon-name">${pokemon.name}</h1>
           <div class="type-tags">
             <div class="type-tag" style="background-color: ${
@@ -336,9 +338,13 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="pokemon-id">#${pokemon.id
             .toString()
             .padStart(3, "0")}</div>
-          <img class="pokemon-image" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
-            pokemon.id
-          }.png" alt="${pokemon.name}">
+          <div class="flex justify-center">
+            <img class="pokemon-image justify-center mt-20" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
+              pokemon.id
+            }.png" alt="${pokemon.name}">
+          </div>
+        </div>
+      </div>
           
           <div class="type-filters">
             ${Object.keys(typeColors)
